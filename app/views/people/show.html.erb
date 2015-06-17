@@ -23,6 +23,8 @@
   </ul>
 </p>
 
+<p><%= link_to 'Add phone number', new_phone_number_path(person_id: @person.id) %></p>
+
 <p>
   <strong>Email addresses:</strong>
   <ul>
@@ -36,7 +38,7 @@
   </ul>
 </p>
 
-<p><%= link_to 'Add phone number', new_phone_number_path(person_id: @person.id) %></p>
+<p><%= link_to 'Add email address', new_email_address_path(person_id: @person.id) %></p>
 
 <%= link_to 'Edit', edit_person_path(@person) %> |
 <%= link_to 'Back', people_path %>
