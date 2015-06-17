@@ -65,7 +65,7 @@ describe 'the person view', type: :feature do
 
     it 'shows email addresses' do
       person.email_addresses.each do |email|
-        expect(page).to have_selector('li', text: email.address.to_s)
+        expect(page).to have_selector('li', text: email.address.to_s + " edit delete")
       end
     end
     it 'has an add email link' do
