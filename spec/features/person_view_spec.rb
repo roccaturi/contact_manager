@@ -33,7 +33,6 @@ describe 'the person view', type: :feature do
     it 'edits a phone number' do
       phone = person.phone_numbers.first
       old_number = phone.number
-
       first(:link, 'edit').click
       page.fill_in('Number', with: '555-5432')
       page.click_button('Update Phone number')
@@ -49,7 +48,6 @@ describe 'the person view', type: :feature do
     it 'destroys a deleted phone number' do
       phone = person.phone_numbers.first
       target_number = phone.number
-
       first(:link, 'delete').click
       expect(current_path).to eq(person_path(person))
       expect(page).to_not have_content(target_number)
@@ -63,12 +61,12 @@ describe 'the person view', type: :feature do
       visit person_path(person)
     end
 
-    it 'shows email addresses' do
+    it 'shows the email addresses' do
       person.email_addresses.each do |email|
         expect(page).to have_selector('li', text: email.address.to_s + " edit delete")
       end
     end
-    it 'has an add email link' do
+    it 'has a link to add a new email address' do
       expect(page).to have_link('Add email address', href: new_email_address_path(person_id: person.id))
     end
     it 'adds a new email address' do
@@ -77,6 +75,33 @@ describe 'the person view', type: :feature do
       page.click_button('Create Email address')
       expect(current_path).to eq(person_path(person))
       expect(page).to have_content('test@testly.io')
+    end
+    it 'has links to edit email addresses' do
+      person.email_addresses.each do |email|
+        expect(page).to have_link('edit', href: edit_email_address_path(email))
+      end
+    end
+    it 'edits an email address' do
+      email = person.email_addresses.first
+      old_address = email.address
+      first(:link, 'edit').click
+      page.fill_in('Address', with: 'new@address.com')
+      page.click_button('Update Email address')
+      expect(current_path).to eq(person_path(person))
+      expect(page).to have_content('new@address.com')
+      expect(page).to_not have_content(old_address)
+    end
+    it 'has links to delete email addresses' do
+      person.email_addresses.each do |email|
+        expect(page).to have_link('delete', href: email_address_path(email))
+      end
+    end
+    it 'destroys a deleted email address' do
+      email = person.email_addresses.first
+      target_address = email.address
+      first(:link, 'delete').click
+      expect(current_path).to eq(person_path(person))
+      expect(page).to_not have_content(target_address)
     end
   end
 end
