@@ -23,6 +23,19 @@
   </ul>
 </p>
 
+<p>
+  <strong>Email addresses:</strong>
+  <ul>
+    <% @person.email_addresses.each do |email| %>
+      <li>
+        <%= email.address %>
+        <!-- <%= link_to 'edit', edit_email_address_path(email) %>&nbsp;
+        <%= link_to 'delete', email_address_path(email), method: 'delete' %> -->
+        </li>
+    <% end %>
+  </ul>
+</p>
+
 <p><%= link_to 'Add phone number', new_phone_number_path(person_id: @person.id) %></p>
 
 <%= link_to 'Edit', edit_person_path(@person) %> |
