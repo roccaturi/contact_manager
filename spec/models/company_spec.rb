@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Company, type: :model do
-  let(:company) { Company.new(name: "Yoyodyne")}
+  let(:company) { Company.new(name: 'Yoyodyne')}
 
   it 'is valid' do
     expect(company).to be_valid
@@ -17,5 +17,8 @@ RSpec.describe Company, type: :model do
   it 'responds with its created email addresses' do
     email_address = company.email_addresses.build(address: 'you@example.net')
     expect(email_address.address).to eq('you@example.net')
+  end
+  it 'converts to a str' do
+    expect(company.to_s).to eq('Yoyodyne')
   end
 end

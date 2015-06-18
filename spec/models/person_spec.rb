@@ -1,9 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Person, type: :model do
-  let(:person) do
-    Person.new(first_name: 'Alice', last_name: 'Smith')
-  end
+  let(:person) { Person.new(first_name: 'Alice', last_name: 'Smith') }
+
   it 'is valid' do
     expect(person).to be_valid
   end
@@ -22,5 +21,8 @@ RSpec.describe Person, type: :model do
   it 'responds with its created email addresses' do
     person.email_addresses.build(address: 'me@example.com')
     expect(person.email_addresses.map(&:address)).to eq(['me@example.com'])
+  end
+  it 'converts to a str with first_name last_name' do
+    expect(person.to_s).to eq('Alice Smith')
   end
 end
